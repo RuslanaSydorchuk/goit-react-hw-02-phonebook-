@@ -51,20 +51,11 @@ class App extends Component{
   }
 
   formSubmit = ({name, number}) => {
-    this.setState(prevState=> {
-      const {contacts} = prevState;
-      if(
-        contacts.find(
-          contact => contact.name.toLowerCase() === name.toLowerCase()
-        )
-      ) {
-        alert(`${name} is already in contact`);
-        return contacts;
-      }
-      return {
-        contacts:[{id: nanoid(), name, number}, ...contacts],
-      }
-    })
+    this.setState(({contacts})=> 
+        contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())
+        ? alert(`${name} is already in contact`)
+        : {contacts:[{id: nanoid(), name, number}, ...contacts]}
+    )
   };
 
   contactDelete = id => {
